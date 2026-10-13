@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function GuessInput() {
+function GuessInput({ addResult }) {
     const [value, setValue] = useState('');
 
     const submitHandler = (event) => {
         event.preventDefault();
         if (value.length !== 5) return;
-        console.log(value.toUpperCase());
+        addResult(value.toUpperCase());
         setValue('');
     };
 
