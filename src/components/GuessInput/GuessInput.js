@@ -5,7 +5,6 @@ function GuessInput({ addResult }) {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        if (value.length !== 5) return;
         addResult(value);
         setValue('');
     };
@@ -17,8 +16,11 @@ function GuessInput({ addResult }) {
                 id="guess-input"
                 name="guess-input"
                 type="text"
-                minLength="5"
-                maxLength="5"
+                required
+                minLength={5}
+                maxLength={5}
+                pattern="[a-zA-Z]{5}"
+                title="5 letter word"
                 value={value}
                 onChange={(event) => setValue(event.target.value.toUpperCase())}>
             </input>
