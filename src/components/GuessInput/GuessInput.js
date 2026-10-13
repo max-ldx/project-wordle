@@ -6,7 +6,7 @@ function GuessInput({ addResult }) {
     const submitHandler = (event) => {
         event.preventDefault();
         if (value.length !== 5) return;
-        addResult(value.toUpperCase());
+        addResult(value);
         setValue('');
     };
 
@@ -20,7 +20,7 @@ function GuessInput({ addResult }) {
                 minLength="5"
                 maxLength="5"
                 value={value}
-                onChange={(event) => setValue(event.target.value)}>
+                onChange={(event) => setValue(event.target.value.toUpperCase())}>
             </input>
         </form>
     );
