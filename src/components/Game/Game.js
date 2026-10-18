@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 
 import { sample } from "../../utils";
 import { WORDS } from "../../data";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import GuessInput from "../GuessInput/GuessInput";
 import GuessResults from "../GuessResults/GuessResults";
 import GameOverBanner from "../GameOverBanner/GameOverBanner";
@@ -12,29 +13,27 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-  const [guesses, setResults] = useState([]);
+  const [gameStatus, setGameStatus] = useState('running');
+  const [guesses, setGuesses] = useState([]);
 
-  const addResult = (result) => {
-    setResults([...guesses, result]);
+  const handleSubmitGuess = (tentativeGuess) => {
+    const nextGuesses = [...guesses, tentativeGuess];
+    setGuesses(nextGuesses);
+
+    if (tentativeGuess === answer) {
+      setGameStatus('won');
+    } else if (nextGuesses.length >= NUM_OF_GUESSES_ALLOWED) {
+      setGameStatus('lost');
+    }
   }
-
-  const getGameState = () => {
-    console.log("log");
-    if (guesses.includes(answer)) return "win";
-    if (guesses.length === 6) return "lose";
-    return "running";
-  };
-
-  const gameState = getGameState();
-  const gameIsRunning = gameState === "running";
 
   return (
     <>
       <GuessResults guesses={guesses} answer={answer} />
-      <GuessInput addResult={addResult} disabled={!gameIsRunning} />
-      {!gameIsRunning &&
+      <GuessInput handleSubmitGuess={handleSubmitGuess} disabled={gameStatus !== 'running'} />
+      {gameStatus !== 'running' &&
         <GameOverBanner
-          gameState={gameState}
+          gameState={gameStatus}
           guessesCount={guesses.length}
           answer={answer} />
       }

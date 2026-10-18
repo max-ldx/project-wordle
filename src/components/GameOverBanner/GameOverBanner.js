@@ -1,5 +1,5 @@
 function GameOverBanner({ gameState, guessesCount, answer }) {
-    if (gameState === "win") {
+    if (gameState === "won") {
         return (
             <div className="happy banner">
                 <p>
@@ -8,10 +8,11 @@ function GameOverBanner({ gameState, guessesCount, answer }) {
                 </p>
             </div>
         );
-    } else if (gameState === "lose") {
-        return (<div class="sad banner">
-            <p>Sorry, the correct answer is <strong>{answer}</strong>.</p>
-        </div>
+    } else if (gameState === "lost") {
+        return (
+            <div class="sad banner">
+                <p>Sorry, the correct answer is <strong>{answer}</strong>.</p>
+            </div>
         );
     }
 }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-function GuessInput({ addResult, disabled }) {
+function GuessInput({ handleSubmitGuess, disabled }) {
     const [value, setValue] = useState('');
 
     const submitHandler = (event) => {
         event.preventDefault();
-        addResult(value);
+        handleSubmitGuess(value);
         setValue('');
     };
 
